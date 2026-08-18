@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheezart - Belajar Menggambar dengan AI</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand" onclick="app.navigate('home')">
+            <i class="fa-solid fa-palette"></i> Cheezart
+        </div>
+        <div class="hamburger" id="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#" onclick="app.navigate('home')">Home</a></li>
+            <li><a href="#" onclick="app.navigate('learning')">Learning Hub</a></li>
+            <li><a href="#" onclick="app.navigate('canvas')">Practice Canvas</a></li>
+            <li><a href="#" onclick="app.navigate('gallery')">Gallery</a></li>
+            <li class="dropdown">
+                <a href="#">Fitur AI <i class="fa-solid fa-chevron-down"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="#" onclick="app.navigate('ai-ref')">AI Reference Generator</a></li>
+                    <li><a href="#" onclick="app.navigate('ai-feedback')">AI Feedback</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="btn-outline-small" onclick="app.navigate('api-key')"><i class="fa-solid fa-key"></i> API Key</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app-content">
+
+        <!-- 1. HOME SECTION -->
+        <section id="home" class="view-section active">
+            <div class="hero">
+                <h1>Hai! Selamat datang di <span>Cheezart</span> 🎨</h1>
+                <p class="tagline">Belajar, Berlatih, dan Berkembang dalam Menggambar.</p>
+                <p class="desc">Temukan inspirasi, pelajari teknik menggambar dari dasar, dan kembangkan skill-mu dengan bantuan asisten AI kami yang ramah.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="app.navigate('learning')"><i class="fa-solid fa-book-open"></i> Mulai Belajar</button>
+                    <button class="btn-secondary" onclick="app.navigate('ai-ref')"><i class="fa-solid fa-lightbulb"></i> Cari Inspirasi</button>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>Learning Hub</h3>
+                    <p>Materi belajar menggambar komprehensif dari tingkat dasar hingga mahir.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <h3>Practice Canvas</h3>
+                    <p>Kanvas digital sederhana untuk langsung mempraktikkan teori yang dipelajari.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h3>AI Reference</h3>
+                    <p>Minta ide pose, tema, dan palet warna ke AI untuk mencari inspirasi.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-comments"></i>
+                    <h3>AI Feedback</h3>
+                    <p>Dapatkan saran positif dan edukatif untuk mengembangkan hasil gambarmu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. LEARNING HUB SECTION -->
+        <section id="learning" class="view-section">
+            <div class="section-header">
+                <h2>Learning Hub 📚</h2>
+                <p>Pilih materi yang ingin kamu pelajari hari ini! Jangan terburu-buru, pelajari langkah demi langkah.</p>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="app.filterLearning('Beginner')">Beginner</button>
+                <button class="tab-btn" onclick="app.filterLearning('Intermediate')">Intermediate</button>
+                <button class="tab-btn" onclick="app.filterLearning('Advanced')">Advanced</button>
+            </div>
+
+            <div class="learning-grid" id="learning-grid">
+                <!-- Diisi oleh JS -->
+            </div>
+        </section>
+
+        <!-- 3. MATERI DETAIL SECTION -->
+        <section id="materi" class="view-section">
+            <button class="btn-back" onclick="app.navigate('learning')"><i class="fa-solid fa-arrow-left"></i> Kembali ke Learning Hub</button>
+            <div class="materi-content" id="materi-content">
+                <!-- Diisi oleh JS yang sudah diperbanyak -->
+            </div>
+        </section>
+
+        <!-- 4. PRACTICE CANVAS SECTION -->
+        <section id="canvas" class="view-section">
+            <div class="section-header">
+                <h2>Practice Canvas 🖌️</h2>
+                <p>Ayo mulai menggambar! Praktikkan materi yang baru dipelajarin tadii. jangan takut gagal, namanya juga belajar!.</p>
+            </div>
+            
+            <div class="canvas-container">
+                <div class="toolbar">
+                    <div class="tool-group">
+                        <button class="tool-btn active" id="btn-brush" title="Brush"><i class="fa-solid fa-paint-brush"></i></button>
+                        <button class="tool-btn" id="btn-eraser" title="Eraser"><i class="fa-solid fa-eraser"></i></button>
+                        <button class="tool-btn" id="btn-fill" title="Fill Color"><i class="fa-solid fa-fill-drip"></i></button>
+                    </div>
+                    
+                    <div class="tool-group">
+                        <label for="brush-size">Ukuran:</label>
+                        <input type="range" id="brush-size" min="1" max="50" value="5">
+                        <span id="brush-size-val">5px</span>
+                    </div>
+
+                    <div class="tool-group">
+                        <input type="color" id="color-picker" value="#1e1b4b" title="Pilih Warna">
+                        <div class="preset-colors">
+                            <div class="color-swatch" style="background-color: #1e1b4b;" onclick="drawingApp.setColor('#1e1b4b')"></div>
+                            <div class="color-swatch" style="background-color: #ef4444;" onclick="drawingApp.setColor('#ef4444')"></div>
+                            <div class="color-swatch" style="background-color: #3b82f6;" onclick="drawingApp.setColor('#3b82f6')"></div>
+                            <div class="color-swatch" style="background-color: #22c55e;" onclick="drawingApp.setColor('#22c55e')"></div>
+                            <div class="color-swatch" style="background-color: #f59e0b;" onclick="drawingApp.setColor('#f59e0b')"></div>
+                            <div class="color-swatch" style="background-color: #ffffff;" onclick="drawingApp.setColor('#ffffff')"></div>
+                        </div>
+                    </div>
+
+                    <div class="tool-group right">
+                        <button class="tool-btn" id="btn-undo" title="Undo"><i class="fa-solid fa-rotate-left"></i></button>
+                        <button class="tool-btn" id="btn-redo" title="Redo"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button class="tool-btn danger" id="btn-clear" title="Clear Canvas"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="tool-btn primary" id="btn-download" title="Download"><i class="fa-solid fa-download"></i></button>
+                    </div>
+                </div>
+                
+                <div class="canvas-wrapper">
+                    <canvas id="drawing-canvas" width="800" height="500"></canvas>
+                </div>
+                
+                <div class="canvas-actions">
+                    <button class="btn-secondary" onclick="app.navigate('ai-feedback')"><i class="fa-solid fa-robot"></i> Minta Feedback AI untuk Gambar Ini</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. REFERENCE GALLERY SECTION -->
+        <section id="gallery" class="view-section">
+            <div class="section-header">
+                <h2>Reference Gallery 🖼️</h2>
+                <p>Jelajahi kumpulan referensi pose, anatomi, warna, dan lainnya.</p>
+            </div>
+            
+            <div class="gallery-controls">
+                <input type="text" id="gallery-search" placeholder="Cari referensi (ex: pose berdiri)..." oninput="app.filterGallery()">
+                <select id="gallery-category" onchange="app.filterGallery()">
+                    <option value="All">Semua Kategori</option>
+                    <option value="Pose">Pose</option>
+                    <option value="Anatomi">Anatomi</option>
+                    <option value="Ekspresi">Ekspresi</option>
+                    <option value="Palet Warna">Palet Warna</option>
+                </select>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Diisi oleh JS -->
+            </div>
+        </section>
+
+        <!-- 6. AI REFERENCE GENERATOR -->
+        <section id="ai-ref" class="view-section">
+            <div class="section-header">
+                <h2>AI Reference Generator 💡</h2>
+                <p>Bingung mau menggambar apa? Minta ide dari AI Cheezart!</p>
+            </div>
+            
+            <div class="ai-container">
+                <div class="ai-input-box">
+                    <textarea id="ai-ref-prompt" placeholder="Contoh: Berikan ide karakter bertema fantasy dengan mood dramatis..."></textarea>
+                    <div class="ai-filters">
+                        <button class="chip" onclick="app.appendPrompt('pose dinamis')">+ Pose</button>
+                        <button class="chip" onclick="app.appendPrompt('tema fantasy')">+ Fantasy</button>
+                        <button class="chip" onclick="app.appendPrompt('palet warna')">+ Palet Warna</button>
+                        <button class="chip" onclick="app.appendPrompt('ekspresi wajah')">+ Ekspresi</button>
+                    </div>
+                    <button class="btn-primary w-100" id="btn-generate-ref" onclick="geminiAPI.generateReference()"><i class="fa-solid fa-wand-magic"></i> Generate Ide</button>
+                </div>
+                
+                <div class="ai-result-box" id="ai-ref-result" style="display: none;">
+                    <div class="result-header">
+                        <h3>Ini idenya! ✨</h3>
+                        <button class="btn-icon" title="Copy" onclick="app.copyText('ai-ref-content')"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                    <div class="result-content" id="ai-ref-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. AI FEEDBACK -->
+        <section id="ai-feedback" class="view-section">
+            <div class="section-header">
+                <h2>AI Feedback 💬</h2>
+                <p>Dapatkan saran positif untuk hasil gambarmu agar terus berkembang.</p>
+            </div>
+            
+            <div class="ai-container">
+                <div class="upload-box" id="upload-box">
+                    <img id="feedback-preview" src="" alt="Preview" style="display: none;">
+                    <div id="upload-placeholder">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Upload gambar dari perangkatmu atau ambil dari Practice Canvas.</p>
+                        <input type="file" id="file-upload" accept="image/png, image/jpeg" style="display: none;" onchange="app.handleImageUpload(event)">
+                        <div class="upload-buttons">
+                            <button class="btn-secondary" onclick="document.getElementById('file-upload').click()">Pilih File</button>
+                            <button class="btn-outline" onclick="app.useCanvasImage()">Gunakan Canvas</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary w-100 mt-3" id="btn-get-feedback" onclick="geminiAPI.getFeedback()" disabled><i class="fa-solid fa-comment-dots"></i> Minta Feedback</button>
+
+                <div class="ai-result-box" id="ai-feedback-result" style="display: none;">
+                    <div class="result-header">
+                        <h3>Feedback untukmu 🎨</h3>
+                    </div>
+                    <div class="result-content" id="ai-feedback-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. API KEY CONFIG -->
+        <section id="api-key" class="view-section">
+            <div class="section-header">
+                <h2>Konfigurasi API Key 🔑</h2>
+                <p>Cheezart membutuhkan Gemini API Key untuk menggunakan fitur AI. Tenang saja, key kamu hanya disimpan sementara di browsermu.</p>
+            </div>
+            
+            <div class="api-box">
+                <label for="gemini-api-key">Masukkan Gemini API Key:</label>
+                <input type="password" id="gemini-api-key" placeholder="AIzaSy...">
+                <p class="help-text">Belum punya? <a href="https://aistudio.google.com/app/apikey" target="_blank">Dapatkan secara gratis di Google AI Studio</a>.</p>
+                
+                <button class="btn-primary mt-3" onclick="app.saveApiKey()">Simpan API Key</button>
+                <button class="btn-outline mt-3" onclick="app.removeApiKey()">Hapus Key</button>
+                
+                <div id="api-status" class="mt-3"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Notifikasi</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
